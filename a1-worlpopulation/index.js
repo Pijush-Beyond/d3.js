@@ -2,7 +2,7 @@ const { csv, select, max } = d3;
 
 const svg = select('svg#visualization');
 if (svg.attr('width')) svg.attr('width', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0))
-if (svg.attr('height')) svg.attr('height', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 120)
+if (svg.attr('height')) svg.attr('height', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 150)
 const width = +svg.attr('width');
 const height = +svg.attr('height');
 var count = 15;
