@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Population Statistics</title>
+  <script src="https://unpkg.com/d3@5.11.0/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>
+    Population Statistics
+  </h1>
+  <form class="flex" style="justify-content:space-evenly" onsubmit="submitForm(event,this)">
+    <div>
+      <label for="yearinput">Select The Year</label>
+      <select name="yearinput" id="yearinput"></select>
+    </div>
+    <div>
+      <label for="order">Reverse</label>
+      <input type="radio" name="order" id="order" checked onclick="checking = !checking; this.checked = checking;">
+    </div>
+    <button type="submit" class="control" style="font-size:18px;padding:5px 10px;">Get Result</button>
+  </form>
+  <div  class="flex" style="justify-content: space-between;padding:0 50px;">
+    <div>
+      <button id="zoomout" class="control" onclick="zoom(false)">-</button>
+      <button id="down" class="control" onclick="up(false)">⬇</button>
+    </div>
+    <div>
+      <button id="zoom" class="control" onclick="zoom(true)">+</button>
+      <button id="up" class="control" onclick="up(true)">⬆</button>
+    </div>
+  </div>
+  <svg id="visualization" width="1500" height="1500"></svg>
+  <script>
+    var useDefineTopTitleWidth=0,
+    useDefineBottomTitleWidth=0,
+    useDefineOtherTitleWidth=0,
+    useDefineRulerWidthLeft=180,
+    useDefineRulerWidthRight=0,
+    useDefineRulerWidthTop=0,
+    useDefineRulerWidthBottom=0;
+  </script>
+  <script src="visualization.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

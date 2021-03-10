@@ -1,0 +1,33 @@
+line{
+  stroke: #c0c0bb;
+}
+rect#body-box{
+  fill:none;
+  stroke: black;
+}
+*{
+  margin:0;
+  padding:0;
+  overflow:hidden;
+}
+h1{
+  text-align:center
+}
+.control{
+  margin:5px 10px;
+  font-size:20px;
+  padding:0 10px;
+}
+.flex{
+  display: flex;
+  align-items: center;
+}
+
+svg text{
+  font-size:12px;
+  color: gray;
+}
+
+g#bottom-ruler text{
+  font-size:15px;
+}

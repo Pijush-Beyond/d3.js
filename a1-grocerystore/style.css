@@ -1,0 +1,44 @@
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+circle {
+  fill: steelblue;
+}
+
+.line-path-F {
+  fill: none;
+  stroke: maroon;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.line-path-M {
+  fill: none;
+  stroke: rgb(20, 199, 160);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+text {
+  font-family: sans-serif;
+}
+
+.tick text {
+  font-size: 1em;
+  fill: #635F5D;
+}
+
+.tick line {
+  stroke: #C0C0BB;
+}
+
+.axis-label {
+  font-size: 4em;
+  fill: #8E8883;
+}
+
+h1 {
+  font-size: 35px;
+  color: #635F5D;
+}

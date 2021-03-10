@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Information</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    g.xAxis>g.tick>text{
+      transform:translate(-70px,0);
+    }
+    g.xAxis{
+      text-anchor: start;
+      color: #ffae00,red;
+    }
+    div#other{
+      display:flex;
+      justify-content:space-between;
+    }
+    div#other>div{
+      display:flex;
+    }
+    div#info{
+      flex-wrap: wrap;
+    }
+    div#info>div{
+      display:flex;
+      align-items:center;
+      margin:0 5px;
+    }
+    div.dot-color{
+      margin-left:5px;
+      width:15px;
+      height: 15px;
+      border-radius:50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="my_dataviz"><svg></svg></div>
+  <br>
+  <div id="other">
+    <div>
+      <button id="zoom" onclick="visualizationGeneratorX(false)" style="font-size:30px">+</button>
+      <button id="right" onclick="visualizationGeneratorY(true)" style="font-size:30px"><</button>
+    </div>
+    <div id="info">
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div>
+      <button id="zoomout" onclick="visualizationGeneratorX(true)" style="font-size:30px">-</button>
+      <button id="left" onclick="visualizationGeneratorY(false)" style="font-size:30px">></button>
+    </div>
+  </div>
+  <script>
+    const {csv} = d3;
+    const marginGlobal = { top: 10, right: 10, bottom: 20, left: 30 };
+    var yScaleCountGlobal = 30;
+    var xScaleCountGlobal = 5;
+    var leftIndex = 0;
+    const maxZoom = 1,
+          minZoom = 22;
+    const interval = 1;
+    const width = window.innerWidth - marginGlobal.left - marginGlobal.right;
+    const height = window.innerHeight - marginGlobal.top - marginGlobal.bottom -100;
+    const svg = d3.select("#my_dataviz")
+      .select("svg")
+      .attr("width", width + marginGlobal.left + marginGlobal.right)
+      .attr("height", height + marginGlobal.top + marginGlobal.bottom)
+      .append("g")
+      .attr("transform",
+        "translate(" + marginGlobal.left + "," + marginGlobal.top + ")");
+    var data;
+    var nummericColumnGloabel;
+    const fontScale = d3.scaleLinear().domain([minZoom, maxZoom]).range([100,150]);
+    var totaldata;
+
+    csv("a1-cereals.csv",d=>{
+      data = d.map(value => {
+        for (let i of Object.keys(d[0]))
+          if (!isNaN(value[i])) value[i] = +value[i]?+value[i]:0;
+        return value;
+      });
+      data.columns = d.columns;
+      totaldata = data.length;
+    })
+
+    csv("a1-cereals.csv", function (pdata) {
+      nummericColumnGloabel = Object.entries(pdata[0]).filter(value => !isNaN(value[1])).map(value => value[0]);
+      const data1 = pdata.slice(leftIndex, xScaleCountGlobal || pdata.length).map(value => {
+        for (let i of Object.keys(pdata[0]))
+          if (!isNaN(value[i])) value[i] = +value[i]?+value[i]:0;
+        return value;
+      })
+      data1.columns = pdata.columns;
+      var subgroups = data1.columns.slice(3);
+      var color = d3.scaleOrdinal()
+        .domain(subgroups)
+        .range(["hsl(0, 100%, 30%)", "hsl(380, 100%, 30%)","#ffae00","#1100dd","#ccdd85","#efe888","#a5b7c9","#a20150","#dd1533","#ee5e0","#cc8435","#545265"]);
+
+      const info = d3.select('div#info').selectAll('span')
+        .data(subgroups)
+          .enter()
+        .append('div')
+        .attr('class','info-group');
+      info.append('div')
+        .text(data => data)
+      info.append('div')
+        .style('background-color',data=>color(data)).attr('class',"dot-color")
+
+      putVisualization(data1);
+    })
+
+    const visualizationGeneratorX = (large) =>{
+      if(xScaleCountGlobal>=minZoom && large){
+        document.getElementById('zoomout').setAttribute('disabled','true');
+        return
+      }else if(xScaleCountGlobal<=maxZoom && !large){
+        document.getElementById('zoom').setAttribute('disabled','true');
+        return
+      }
+      if(data){
+        document.getElementById('zoomout').removeAttribute('disabled');
+        document.getElementById('zoom').removeAttribute('disabled');
+        if(large) xScaleCountGlobal +=interval;
+        else xScaleCountGlobal -= interval;
+        putVisualization(dataProcessor());
+      }
+    }
+    const visualizationGeneratorY = (right) =>{
+      if(leftIndex>=(totaldata - xScaleCountGlobal) && right){
+        document.getElementById('right').setAttribute('disabled','true');
+        return
+      }else if(leftIndex<=0 && !right){
+        document.getElementById('left').setAttribute('disabled','true');
+        return
+      }
+      if(data){
+        document.getElementById('right').removeAttribute('disabled');
+        document.getElementById('left').removeAttribute('disabled');
+        if(right) {
+          leftIndex++;
+        }else {
+          leftIndex--;
+        }
+        putVisualization(dataProcessor());
+      }
+    }
+
+    const dataProcessor = () => {
+      const d = data.slice(leftIndex, leftIndex + xScaleCountGlobal);
+      d.columns = data.columns;
+      return d;
+    };
+    d3.select('body').append('style').attr('class','font');
+
+    // set the dimensions and margins of the graph
+    const putVisualization = (data) => {
+
+      d3.select('g.xAxis').remove();
+      d3.select('g.graph').remove();
+      d3.select('g.yAxis').remove();
+      d3.select('g.ruler').remove();
+      d3.select('style.font').text(`
+        g.xAxis>g.tick>text{
+          font-size: ${Math.round(fontScale(xScaleCountGlobal))}%;
+        }
+      `);
+
+      // const notfirst = !Boolean(d3.select('g.yAxis')._groups[0][0]);
+
+      const yScaleCount = yScaleCountGlobal;
+      let scaleHeight = 0;
+      for (let value of data)
+        for (let i of nummericColumnGloabel)
+          scaleHeight = scaleHeight > value[i] ? scaleHeight : value[i];
+
+      var subgroups = data.columns.slice(3);
+      var color = d3.scaleOrdinal()
+        .domain(subgroups)
+        .range(["hsl(0, 100%, 30%)", "hsl(380, 100%, 30%)","#ffae00","#1100dd","#ccdd85","#efe888","#a5b7c9","#a20150","#dd1533","#ee5e0","#cc8435","#545265"]);
+
+      const groups = d3.map(data, function (d) { return (d.Cereal) }).keys();
+
+      // Add X axis
+      var x = d3.scaleBand()
+        .domain(groups)
+        .range([0, width])
+        .padding([0.2]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .attr('class', 'xAxis')
+        .call(d3.axisBottom(x).tickSize(0));
+
+      // Add Y axis
+      
+      // Another scale for subgroup position?
+      var xSubgroup = d3.scaleBand()
+      .domain(nummericColumnGloabel)//subgroups
+      .range([0, x.bandwidth()])
+      .padding([0.05]);
+
+      var y = d3.scaleLinear()
+        .domain([0, scaleHeight])
+        .range([height, 0]);
+
+      svg.append("g").attr('class', 'yAxis')
+        .call(d3.axisLeft(y).ticks(yScaleCount));
+
+      svg.append('g')
+        .attr("class","ruler")
+        .selectAll("line")
+        .data(() => {
+          const yLabels = [];
+          for (let i of document.querySelectorAll('g.yAxis>g.tick'))
+            yLabels.push(+i.getAttribute('transform').split(/[^\d*]/g).filter(value => value)[1]);
+          return yLabels;
+        })
+        .enter()
+        .append('line')
+        .attr('x1', 0)
+        .attr('y1', value => value)
+        .attr('x2', width)
+        .attr('y2', value => value)
+        .attr('style', "stroke:grey;stroke-width:.3")
+      // Show the bars
+      svg.append("g")
+        .attr("class","graph")
+        .selectAll("g")
+        .data(data)
+        .enter()
+        .append("g")
+        .attr("transform", function (d) { return "translate(" + x(d.Cereal) + ",0)"; })
+        .selectAll("rect")
+        .data((d) =>  subgroups.map((key) => {
+          return { key: key, value: d[key] }; 
+        }))
+        .enter().append("rect")
+        .attr("x", function (d) { return xSubgroup(d.key); })
+        .attr("y", function (d) { return y(d.value); })
+        .attr("width", xSubgroup.bandwidth())
+        .attr("height", function (d) { return height - y(d.value); })
+        .attr("fill", function (d) { return color(d.key); });
+    }
+  </script>
+</body>
+</html>
