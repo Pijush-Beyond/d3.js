@@ -14,8 +14,8 @@ const {
 
 const svg = select('svg#visualization');
 // console.log(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0))
-if (!svg.attr('width')) svg.attr('width', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0))
-if (!svg.attr('height')) svg.attr('height', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 80)
+if (!svg.attr('width')) svg.attr('width', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) - 20)
+if (!svg.attr('height')) svg.attr('height', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 150)
 const width = +svg.attr('width');
 const height = +svg.attr('height');
 // var data;

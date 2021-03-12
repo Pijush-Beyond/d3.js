@@ -5,16 +5,31 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
   <body>
+    <div class="d-flex justify-content-around py-4 px-2">
+      <a class="btn btn-outline-primary disabled" href="/a1-cars/">Cars Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-cereals/">Cereals Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-films/">Films Data Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-grocerystore/">Grocery Store Survey Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-mutualfund/">Mutual Fund DataVisualization</a>
+    </div>
+    <h1 class="text-center"><u>Car Data Visualization</u></h1>
     <div id="menus">
       Cars:
       <span id="y-menu"></span>
       vs.
       <span id="x-menu"></span>
     </div>
-    <svg width="960" height="450"></svg>
+    <svg></svg>
+    <h3 class="mx-2 px-5">Description:</h3>
+    <p class="m2 p-5">
+      Here we can plot the graph making the values of x axis and y axis differ according to us. <br> 
+      Mpg denotes the miles per gallon, according to the weight of the car. <br>
+      The order of efficient engines according to countries are Europe, America and Japan. <br>
+      We can also see from the plot that as the weight is being increased the Mpg or the fuel efficiency is getting decreased <br>
+    </p>
     <script src="index.js"></script>
   </body>
 </html>

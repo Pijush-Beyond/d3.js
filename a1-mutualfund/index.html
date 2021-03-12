@@ -8,13 +8,26 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1 style="text-align:center" id="title"></h1>
+  <div class="d-flex justify-content-around py-4 px-2">
+    <a class="btn btn-outline-primary" href="/a1-cars/">Cars Visualization</a>
+    <a class="btn btn-outline-primary" href="/a1-cereals/">Cereals Visualization</a>
+    <a class="btn btn-outline-primary" href="/a1-films/">Films Data Visualization</a>
+    <a class="btn btn-outline-primary" href="/a1-grocerystore/">Grocery Store Survey Visualization</a>
+    <a class="btn btn-outline-primary disabled" href="/a1-mutualfund/">Mutual Fund DataVisualization</a>
+  </div>
+  <h1 class="text-center"><u id="title"></u></h1>
   <div style="display:flex;justify-content:flex-end; align-items:center;padding:0 30px;">
     <label for="select" style="padding:0 10px">Select The Axis</label>
     <select id="select" onchange="selectOption(this.value)">
     </select>
   </div>
   <svg class="bubble"></svg>
+  <h3 class="mx-2 px-5">Mutual Fund Data Visualization:</h3>
+  <p class="m2 p-5">
+  Here we are using the Bubble Graph of D3.js. HEre we can select different types of axis from the given drop down. <br>
+  On selection of an option the graph designs itself. This size of the bubble shows the value for the option selected for every company. <br>
+  The greater the value the bigger the bubble <br>
+  </p>
 	<script src="index.js"></script>
 </body>
 </html>

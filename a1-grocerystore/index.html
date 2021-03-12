@@ -8,6 +8,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
   <body>
+    <div class="d-flex justify-content-around py-4 px-2">
+      <a class="btn btn-outline-primary" href="/a1-cars/">Cars Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-cereals/">Cereals Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-films/">Films Data Visualization</a>
+      <a class="btn btn-outline-primary disabled" href="/a1-grocerystore/">Grocery Store Survey Visualization</a>
+      <a class="btn btn-outline-primary" href="/a1-mutualfund/">Mutual Fund DataVisualization</a>
+    </div>
     <div style="display:flex;justify-content:space-between; align-items:center;padding:0 30px;">
       <div>
         <label for="select">Select The Axis</label>
@@ -16,7 +23,7 @@
           <option value="PurchaseAmount">Age V/S PurchaseAmount</option>
         </select>
       </div>
-      <h1 style="text-align:center">Grocery Store Survey</h1>
+      <h1 style="text-align:center"><u>Grocery Store Survey</u></h1>
       <div style="display:flex;flex-direction:column; justify-content:space-between;height:100%">
         <div>
           <label>Female</label>
@@ -29,6 +36,15 @@
       </div>
     </div>
     <svg id="visualization"></svg>
+    <h3 class="mx-2 px-5">Grocery Data Visualization:</h3>
+    <p class="m2 p-5">
+      Here we have used the Line Graph visualization technique. In this there are two types of visualization <br>
+      1. Age v/s Purchase Amount <br>
+      2. Age v/s Income <br>
+      In both the cases the x axis demonstrates the Age and the y axis demonstrates the other variable <br>
+      Through this graph we can conclude that the people between the age of 30-60 have a greater income while people almost have similar purchase amounts at every age. <br>
+      Females have a more income and less purchase amount as compared to male <br>
+    </p>
     <script src="index.js"></script>
   </body>
 </html>

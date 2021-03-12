@@ -35,40 +35,52 @@
       height: 15px;
       border-radius:50%;
     }
+    .domain{
+      stroke: gray;
+    }
   </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
+  <div class="d-flex justify-content-around py-4 px-2">
+    <a class="btn btn-outline-primary" href="/a1-cars/">Cars Visualization</a>
+    <a class="btn btn-outline-primary disabled" href="/a1-cereals/">Cereals Visualization</a>
+    <a class="btn btn-outline-primary" href="/a1-films/">Films Data Visualization</a>
+    <a class="btn btn-outline-primary" href="/a1-grocerystore/">Grocery Store Survey Visualization</a>
+    <a class="btn btn-outline-primary" href="/a1-mutualfund/">Mutual Fund DataVisualization</a>
+  </div>
+  <h1 class="text-center"><u>Car Data Visualization</u></h1>
   <div id="my_dataviz"><svg></svg></div>
   <br>
-  <div id="other">
-    <div>
-      <button id="zoom" onclick="visualizationGeneratorX(false)" style="font-size:30px">+</button>
-      <button id="right" onclick="visualizationGeneratorY(true)" style="font-size:30px"><</button>
+  <div id="other" class="d-flex p-2 m2">
+    <div class="d-flex p-2">
+      <button id="zoom" class="btn btn-primary btn-lg mx-2 my-2" onclick="visualizationGeneratorX(false)">+</button>
+      <button id="right" class="btn btn-primary btn-lg mx-2 my-2" onclick="visualizationGeneratorY(true)"><</button>
     </div>
-    <div id="info">
-      <div>
-        <div></div>
-        <div></div>
-      </div>
+    <div id="info" class="d-flex p-2 m-2">
     </div>
-    <div>
-      <button id="zoomout" onclick="visualizationGeneratorX(true)" style="font-size:30px">-</button>
-      <button id="left" onclick="visualizationGeneratorY(false)" style="font-size:30px">></button>
+    <div class="d-flex p-2 m2">
+      <button id="zoomout" class="btn btn-primary btn-lg mx-2 my-2" onclick="visualizationGeneratorX(true)">-</button>
+      <button id="left" class="btn btn-primary btn-lg mx-2 my-2" onclick="visualizationGeneratorY(false)">></button>
     </div>
   </div>
+  <h3 class="mx-2 px-5">Cereals Data Visualization:</h3>
+  <p class="m2 p-5">
+    Here the visualization used is Group Bar Graph. We are grouping different types of nutrients present in different foods . Different nutrients are depicted by different color bars. The y axis represents the frequency of each nutrient present in the food. The higher the line the higher the frequency. 
+    When we click on the add icon it makes more food items added to the x axis while if we click the subtract icon the vice versa takes place
+  </p>
   <script>
     const {csv} = d3;
-    const marginGlobal = { top: 10, right: 10, bottom: 20, left: 30 };
+    const marginGlobal = { top: 10, right: 0, bottom: 50, left: 50 };
     var yScaleCountGlobal = 30;
     var xScaleCountGlobal = 5;
     var leftIndex = 0;
     const maxZoom = 1,
           minZoom = 22;
     const interval = 1;
-    const width = window.innerWidth - marginGlobal.left - marginGlobal.right;
-    const height = window.innerHeight - marginGlobal.top - marginGlobal.bottom -100;
+    const width = window.innerWidth - marginGlobal.left - marginGlobal.right -50;
+    const height = window.innerHeight - marginGlobal.top - marginGlobal.bottom;
     const svg = d3.select("#my_dataviz")
       .select("svg")
       .attr("width", width + marginGlobal.left + marginGlobal.right)

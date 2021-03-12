@@ -98,11 +98,11 @@ d3.csv('a1-mutualfunds.csv', rendereddata => {
   Object.entries(data['children'][0]).map(v => {
     if (!isNaN(v[1])) option.append('option').attr('value', v[0]).text(v[0]);
   })
-  select('h1#title').text(`Bubble Graph about Mutual Fund's ${option.select("option").attr("value")}`)
+  select('u#title').text(`Bubble Graph about Mutual Fund's ${option.select("option").attr("value")}`)
   visualization(data, option.select("option").attr("value"));
 })
 
 const selectOption = value => {
   visualization(data, value);
-  select('h1#title').text(`Bubble Graph about Mutual Fund's ${value}`)
+  select('u#title').text(`Bubble Graph about Mutual Fund's ${value}`)
 }

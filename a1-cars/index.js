@@ -74,9 +74,11 @@
     
     const xAxis = d3.axisBottom(xScale)
       .tickSize(-innerHeight)
+      .ticks(25)
       .tickPadding(15);
     
     const yAxis = d3.axisLeft(yScale)
+      .ticks(25)
       .tickSize(-innerWidth)
       .tickPadding(10);
     
@@ -86,8 +88,7 @@
         .attr('class', 'y-axis');
     yAxisG
       .merge(yAxisGEnter)
-        .call(yAxis)
-        .selectAll('.domain').remove();
+        .call(yAxis);
     
     const yAxisLabelText = yAxisGEnter
       .append('text')
@@ -108,8 +109,7 @@
     xAxisG
       .merge(xAxisGEnter)
         .attr('transform', `translate(0,${innerHeight})`)
-        .call(xAxis)
-        .selectAll('.domain').remove();
+        .call(xAxis);
     
     const xAxisLabelText = xAxisGEnter
       .append('text')
@@ -137,8 +137,8 @@
   };
 
   const svg = d3.select('svg');
-  if (svg.attr('width')) svg.attr('width', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0))
-  if (svg.attr('height')) svg.attr('height', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 120)
+  if (!svg.attr('width')) svg.attr('width', Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) - 20)
+  if (!svg.attr('height')) svg.attr('height', Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) - 150)
   const width = +svg.attr('width');
   const height = +svg.attr('height');
 

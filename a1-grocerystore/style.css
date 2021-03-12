@@ -1,6 +1,6 @@
-body {
+*{
   margin: 0px;
-  overflow: hidden;
+  padding:0;
 }
 
 circle {
